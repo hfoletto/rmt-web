@@ -74,6 +74,9 @@ type Mutation {
   """Log out from the current session, showing the user one last time."""
   logout: User
 
+  """Register a new user"""
+  createUser(name: String!, email: String!, password: String!): User
+
   """Creates a new theater chain."""
   createTheaterChain(input: CreateTheaterChainInput!): TheaterChain!
 
