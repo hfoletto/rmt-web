@@ -10,7 +10,8 @@
           :autocomplete="autocomplete"
           :required="required"
           :placeholder="placeholder"
-          :value="lazyValue"
+          :value="modelValue"
+          @input="$emit('update:modelValue', $event.target.value)"
       />
     </div>
   </div>
@@ -21,7 +22,7 @@ const props = defineProps({
   label: String,
   id: String,
   placeholder: String,
-  value: String,
+  modelValue: String,
   required: Boolean,
   type: {
     type: String,
@@ -29,8 +30,6 @@ const props = defineProps({
   },
   autocomplete: String
 })
-
-const lazyValue = ref(props.value)
 </script>
 
 <style scoped>
