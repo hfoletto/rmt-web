@@ -6,7 +6,7 @@
           <img class="h-12 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=red&shade=800" alt="Your Company" />
           <h2 class="mt-6 text-3xl font-bold tracking-tight text-gray-900">Entrar na minha conta</h2>
           <p class="mt-2 text-sm text-gray-600">
-            ou <a href="#" class="font-medium text-red-800 hover:text-red-700">criar uma nova conta</a>
+            ou <a href="/cadastro" class="font-medium text-red-800 hover:text-red-700">criar uma nova conta</a>
           </p>
         </div>
 
@@ -27,6 +27,10 @@
                 </div>
               </div>
 
+              <h3 v-if="loading">Loading...</h3>
+
+              <ErrorAlert v-if="error" :error="error"></ErrorAlert>
+
               <div>
                 <Button>Entrar</Button>
               </div>
@@ -42,7 +46,8 @@
 </template>
 
 <script setup lang="ts">
-import { useHead } from "nuxt/app";
+import { useHead } from "#imports";
+import { useMutation } from '@vue/apollo-composable'
 
 const title = ref('My App')
 const description = ref('My App Description')
@@ -64,19 +69,9 @@ useHead({
 const email = ref("")
 const password = ref("")
 
-async function login() {
-  const variables = { email: email.value, password: password.value }
-  useAsyncQuery(loginMutation, variables)
-      .then(result => {
-        console.log(result)
-      })
-      .catch(e => {
-        console.log("DEU RUIM")
-        console.log(e)
-      })
-}
+let data = ref(null as Object|null)
 
-const loginMutation = gql`
+const loginMutationQuery = gql`
   mutation login($email: String!, $password: String!) {
   login (email: $email, password: $password) {
     name,
@@ -85,13 +80,10 @@ const loginMutation = gql`
 }
 `
 
-const theatersQuery = gql`
-  query getTheaters {
-  theaters (first: 10) {
-    data {
-      name
-    }
-  }
+const { mutate: loginMutation, error, loading } = useMutation(loginMutationQuery)
+
+function login() {
+  loginMutation({email: email.value, password: password.value})
 }
-`
+
 </script>
