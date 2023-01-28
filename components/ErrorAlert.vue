@@ -1,8 +1,8 @@
 <template>
   <div class="space-y-2">
-    <Alert theme="error" v-for="(error) of error.graphQLErrors" :title="error.message">
-      <ul v-if="error.extensions.validation" role="list" class="list-disc space-y-1 pl-5">
-        <li v-for="(value, key) of error.extensions.validation" :key="key">
+    <Alert v-for="(single_error, i) of error.graphQLErrors" :key="i" theme="error" :title="single_error.message">
+      <ul v-if="single_error.extensions.validation" role="list" class="list-disc space-y-1 pl-5">
+        <li v-for="(value, key) of single_error.extensions.validation" :key="key">
           {{ value.join(', ') }}
         </li>
       </ul>
@@ -12,9 +12,7 @@
 
 <script setup lang="ts">
 import { ApolloError } from '@apollo/client'
-const props = defineProps<{
+defineProps<{
   error: ApolloError
 }>()
 </script>
-
-
