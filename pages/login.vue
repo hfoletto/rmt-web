@@ -27,12 +27,10 @@
                 </div>
               </div>
 
-              <h3 v-if="loading">Loading...</h3>
-
               <ErrorAlert v-if="error" :error="error"></ErrorAlert>
 
               <div>
-                <Button>Entrar</Button>
+                <Button :loading="loading">Entrar</Button>
               </div>
             </form>
           </div>
