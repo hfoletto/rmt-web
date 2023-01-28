@@ -54,6 +54,9 @@ useHead({
     class: 'h-full'
   }
 })
+definePageMeta({
+  layout: false,
+})
 
 const createUserMutationQuery = gql`
   mutation createUser($name: String!, $email: String!, $password: String!) {

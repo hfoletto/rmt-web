@@ -27,7 +27,7 @@
                 </div>
               </div>
 
-              <ErrorAlert v-if="error" :error="error"></ErrorAlert>
+              <ErrorAlert v-if="error" :error="error" />
 
               <div>
                 <Button :loading="loading">Entrar</Button>
@@ -62,6 +62,9 @@ useHead({
   bodyAttrs: {
     class: 'h-full'
   }
+})
+definePageMeta({
+  layout: false,
 })
 
 const email = ref("")
