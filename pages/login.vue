@@ -61,7 +61,7 @@
 import { useToast } from 'tailvue'
 import { useMutation } from '@vue/apollo-composable'
 import { useHead } from '#imports'
-import { useUserStore } from '@/store/user'
+import { useAuthStore } from '@/store/auth'
 
 const title = ref('My App')
 const description = ref('My App Description')
@@ -83,9 +83,9 @@ definePageMeta({
   layout: false,
 })
 
-const store = useUserStore()
+const store = useAuthStore()
 
-if (store.user !== null)
+if (store.loggedIn)
   await navigateTo('/')
 
 const $toast = useToast()

@@ -3,6 +3,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useUserStore } from '@/store/user'
-const store = useUserStore()
+import { useAuthStore } from '@/store/auth'
+const store = useAuthStore()
 </script>
