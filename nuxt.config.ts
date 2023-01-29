@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     '@nuxtjs/apollo',
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
+    '@tailvue/nuxt',
   ],
   head: {
     link: [
