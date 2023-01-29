@@ -84,6 +84,10 @@ definePageMeta({
 })
 
 const store = useUserStore()
+
+if (store.user !== null)
+  await navigateTo('/')
+
 const $toast = useToast()
 
 const email = ref('')
