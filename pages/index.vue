@@ -1,16 +1,8 @@
 <template>
-  <h2>{{ JSON.stringify(data.me.email) }}</h2>
+  <h2>{{ store.user?.name }}</h2>
 </template>
 
 <script lang="ts" setup>
-const query = gql`
-  query getMe {
-  me {
-    email,
-    name,
-    created_at
-  }
-}
-`
-const { data } = await useAsyncQuery(query)
+import { useUserStore } from '@/store/user'
+const store = useUserStore()
 </script>
