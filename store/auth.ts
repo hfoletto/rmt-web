@@ -7,7 +7,7 @@ type GetMe = {
   }
 }
 
-export const useUserStore = defineStore('user', {
+export const useAuthStore = defineStore('user', {
   state: () => {
     return {
       user: null as {
@@ -15,6 +15,9 @@ export const useUserStore = defineStore('user', {
         email: string
       } | null,
     }
+  },
+  getters: {
+    loggedIn: state => state.user !== null,
   },
   actions: {
     async fetchUser () {
