@@ -58,8 +58,10 @@
 </template>
 
 <script setup lang="ts">
+import { useToast } from 'tailvue'
 import { useMutation } from '@vue/apollo-composable'
 import { useHead } from '#imports'
+import { useUserStore } from '@/store/user'
 
 const title = ref('My App')
 const description = ref('My App Description')
@@ -81,10 +83,11 @@ definePageMeta({
   layout: false,
 })
 
+const store = useUserStore()
+const $toast = useToast()
+
 const email = ref('')
 const password = ref('')
-
-const data = ref(null as Object|null)
 
 const loginMutationQuery = gql`
   mutation login($email: String!, $password: String!) {
@@ -99,9 +102,19 @@ const { mutate: loginMutation, error, loading } = useMutation(loginMutationQuery
 
 async function login () {
   console.log('ok1')
-  await loginMutation({ email: email.value, password: password.value })
-  if (!error.value)
-    return navigateTo('/')
+  const { data } = await loginMutation({ email: email.value, password: password.value })
+  if (!error.value) {
+    store.$patch({
+      user: { ...data.login },
+    })
+    $toast.show({
+      type: 'success',
+      message: 'Sessão iniciada com sucesso',
+    })
+    window.setTimeout(() => {
+      return navigateTo('/')
+    }, 1000)
+  }
 }
 
 </script>
