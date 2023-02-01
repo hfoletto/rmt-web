@@ -3,7 +3,7 @@
     <div class="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
       <div class="mx-auto w-full max-w-sm lg:w-96">
         <div>
-          <img class="h-12 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=red&shade=800" alt="Your Company">
+          <img class="h-12 w-auto" src="~/assets/img/logo.png" :alt="config.appName">
           <h2 class="mt-6 text-3xl font-bold tracking-tight text-gray-900">Entrar na minha conta</h2>
           <p class="mt-2 text-sm text-gray-600">
             ou <a href="/cadastro" class="font-medium text-red-800 hover:text-red-700">criar uma nova conta</a>
@@ -63,15 +63,7 @@ import { useMutation } from '@vue/apollo-composable'
 import { useHead } from '#imports'
 import { useAuthStore } from '@/store/auth'
 
-const title = ref('My App')
-const description = ref('My App Description')
-// This will be reactive even you change title/description above
 useHead({
-  title,
-  meta: [{
-    name: 'description',
-    content: description,
-  }],
   htmlAttrs: {
     class: 'h-full bg-white',
   },
@@ -82,6 +74,8 @@ useHead({
 definePageMeta({
   layout: false,
 })
+
+const config = useRuntimeConfig()
 
 const store = useAuthStore()
 
