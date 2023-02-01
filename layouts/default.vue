@@ -4,9 +4,9 @@
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 justify-between">
           <div class="flex">
-            <div class="flex flex-shrink-0 items-center">
+            <NuxtLink to="/" class="flex flex-shrink-0 items-center">
               <img class="block h-8 w-auto" src="~/assets/img/logo.png" :alt="config.appName">
-            </div>
+            </NuxtLink>
             <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
               <a v-for="item in navigation" :key="item.name" :href="item.href" :class="[item.current ? 'border-red-800 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700', 'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
             </div>
