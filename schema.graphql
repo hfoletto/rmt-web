@@ -30,6 +30,24 @@ type AuditoriumPaginator {
   data: [Auditorium!]!
 }
 
+"""City in a state."""
+type City {
+  id: ID!
+  name: String!
+  state: State!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+"""A paginated list of City items."""
+type CityPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of City items."""
+  data: [City!]!
+}
+
 input CreateAuditoriumInput {
   name: String!
   theater: TheaterBelongsTo!
@@ -233,8 +251,32 @@ type Query {
     page: Int
   ): UserPaginator
 
+  """List multiple states."""
+  states(
+    """Filters by name. Accepts SQL LIKE wildcards `%` and `_`."""
+    uf: String
+
+    """Limits number of fetched items."""
+    first: Int = 10
+
+    """The offset from which items are returned."""
+    page: Int
+  ): StatePaginator
+
+  """List multiple cities."""
+  cities(
+    """Filters by name. Accepts SQL LIKE wildcards `%` and `_`."""
+    name: String
+
+    """Limits number of fetched items."""
+    first: Int = 10
+
+    """The offset from which items are returned."""
+    page: Int
+  ): CityPaginator
+
   """List multiple auditoriums."""
-  auditoria(
+  auditoriums(
     """Filters by name. Accepts SQL LIKE wildcards `%` and `_`."""
     name: String
 
@@ -341,12 +383,32 @@ enum SortOrder {
   DESC
 }
 
+"""State in the country."""
+type State {
+  id: ID!
+  name: String!
+  uf: String!
+  cities: [City!]!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+"""A paginated list of State items."""
+type StatePaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of State items."""
+  data: [State!]!
+}
+
 """A theater from a chain."""
 type Theater {
   id: ID!
   name: String!
   theaterChain: TheaterChain!
-  auditoria: [Auditorium!]!
+  city: City!
+  auditoriums: [Auditorium!]!
   created_at: DateTime!
   updated_at: DateTime!
 }
