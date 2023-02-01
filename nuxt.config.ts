@@ -7,6 +7,9 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@tailvue/nuxt',
   ],
+  runtimeConfig: {
+    appName: 'Rate My Theater',
+  },
   head: {
     link: [
       {
