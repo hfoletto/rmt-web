@@ -8,7 +8,17 @@
               <img class="block h-8 w-auto" src="~/assets/img/logo.png" :alt="config.appName">
             </NuxtLink>
             <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
-              <a v-for="item in navigation" :key="item.name" :href="item.href" :class="[item.current ? 'border-red-800 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700', 'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
+              <NuxtLink
+                  v-for="item in navigation"
+                  :key="item.name"
+                  :to="item.href"
+                  :class="[item.current
+                    ? 'border-red-800 text-gray-900'
+                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
+                    'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'
+                  ]"
+                  :aria-current="item.current ? 'page' : undefined"
+              >{{ item.name }}</NuxtLink>
             </div>
           </div>
           <div class="hidden sm:ml-6 sm:flex sm:items-center">
@@ -43,8 +53,8 @@
               </transition>
             </Menu>
             <div v-else class="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-              <a href="/login" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-700">Fazer login</a>
-              <a href="/cadastro" class="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-red-800 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700">Criar conta</a>
+              <NuxtLink to="/login" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-700">Fazer login</NuxtLink>
+              <NuxtLink to="/cadastro" class="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-red-800 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700">Criar conta</NuxtLink>
             </div>
           </div>
           <div class="-mr-2 flex items-center sm:hidden">

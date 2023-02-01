@@ -8,7 +8,7 @@
           </NuxtLink>
           <h2 class="mt-6 text-3xl font-bold tracking-tight text-gray-900">Entrar na minha conta</h2>
           <p class="mt-2 text-sm text-gray-600">
-            ou <a href="/cadastro" class="font-medium text-red-800 hover:text-red-700">criar uma nova conta</a>
+            ou <NuxtLink to="/cadastro" class="font-medium text-red-800 hover:text-red-700">criar uma nova conta</NuxtLink>
           </p>
         </div>
 
