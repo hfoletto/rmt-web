@@ -8,16 +8,16 @@
               <img class="block h-8 w-auto" src="~/assets/img/logo.png" :alt="config.appName">
             </div>
             <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
-              <a v-for="item in navigation" :key="item.name" :href="item.href" :class="[item.current ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700', 'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
+              <a v-for="item in navigation" :key="item.name" :href="item.href" :class="[item.current ? 'border-red-800 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700', 'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
             </div>
           </div>
           <div class="hidden sm:ml-6 sm:flex sm:items-center">
             <!-- Profile dropdown -->
-            <Menu as="div" class="relative ml-3">
+            <Menu v-if="store.loggedIn" as="div" class="relative ml-3">
               <div>
-                <MenuButton class="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                <MenuButton class="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2">
                   <span class="sr-only">Open user menu</span>
-                  <img class="h-8 w-8 rounded-full" :src="user.imageUrl" alt="">
+                  <UserCircleIcon class="h-8 w-8 text-gray-400 hover:text-gray-500" aria-hidden="true" />
                 </MenuButton>
               </div>
               <transition
@@ -30,15 +30,26 @@
               >
                 <MenuItems class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
-                    <a :href="item.href" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">{{ item.name }}</a>
+                    <component
+                      :is="item.hasOwnProperty('action') ? 'button' : 'a'"
+                      :href="item.hasOwnProperty('href') && item.href"
+                      :class="[active ? 'bg-gray-100' : '', 'block w-full text-left px-4 py-2 text-sm text-gray-700']"
+                      @click="item.action"
+                    >
+                      {{ item.name }}
+                    </component>
                   </MenuItem>
                 </MenuItems>
               </transition>
             </Menu>
+            <div v-else class="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
+              <a href="/login" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-700">Fazer login</a>
+              <a href="/cadastro" class="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-red-800 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700">Criar conta</a>
+            </div>
           </div>
           <div class="-mr-2 flex items-center sm:hidden">
             <!-- Mobile menu button -->
-            <DisclosureButton class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <DisclosureButton class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2">
               <span class="sr-only">Open main menu</span>
               <Bars3Icon v-if="!open" class="block h-6 w-6" aria-hidden="true" />
               <XMarkIcon v-else class="block h-6 w-6" aria-hidden="true" />
@@ -54,7 +65,7 @@
             :key="item.name"
             as="a"
             :href="item.href"
-            :class="[item.current ? 'bg-indigo-50 border-indigo-500 text-indigo-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800', 'block pl-3 pr-4 py-2 border-l-4 text-base font-medium']"
+            :class="[item.current ? 'bg-indigo-50 border-red-800 text-indigo-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800', 'block pl-3 pr-4 py-2 border-l-4 text-base font-medium']"
             :aria-current="item.current ? 'page' : undefined"
           >
             {{ item.name }}
@@ -63,13 +74,13 @@
         <div class="border-t border-gray-200 pt-4 pb-3">
           <div class="flex items-center px-4">
             <div class="flex-shrink-0">
-              <img class="h-10 w-10 rounded-full" :src="user.imageUrl" alt="">
+              <UserCircleIcon class="h-10 w-10 text-gray-400" aria-hidden="true" />
             </div>
             <div class="ml-3">
               <div class="text-base font-medium text-gray-800">{{ user.name }}</div>
               <div class="text-sm font-medium text-gray-500">{{ user.email }}</div>
             </div>
-            <button type="button" class="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <button type="button" class="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2">
               <span class="sr-only">View notifications</span>
               <BellIcon class="h-6 w-6" aria-hidden="true" />
             </button>
@@ -88,7 +99,11 @@
 <script setup lang="ts">
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
+import { UserCircleIcon } from '@heroicons/vue/24/solid'
+import { useMutation } from '@vue/apollo-composable'
+import { useToast } from 'tailvue'
 import { useHead } from '#imports'
+import { useAuthStore } from '~/store/auth'
 
 useHead({
   title: 'RMT',
@@ -104,24 +119,49 @@ useHead({
   },
 })
 
-const user = {
+const config = useRuntimeConfig()
+const store = useAuthStore()
+const $toast = useToast()
 
+const logoutMutationQuery = gql`
+  mutation logout {
+    logout {
+      name
+    }
+  }
+`
+
+const { mutate: logoutMutation, error, loading } = useMutation(logoutMutationQuery)
+
+async function logout () {
+  await logoutMutation()
+  if (!error.value) {
+    store.$patch({
+      user: null,
+    })
+    $toast.show({
+      type: 'info',
+      message: 'Sessão encerrada com sucesso',
+    })
+    window.setTimeout(() => {
+      return navigateTo('/')
+    }, 1000)
+  }
+}
+
+const user = {
   name: 'Tom Cook',
   email: 'tom@example.com',
-  imageUrl:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 }
-const navigation = [
 
+const navigation = [
   { name: 'Dashboard', href: '#', current: true },
   { name: 'Team', href: '#', current: false },
   { name: 'Projects', href: '#', current: false },
   { name: 'Calendar', href: '#', current: false },
 ]
 const userNavigation = [
-
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
+  { name: 'Perfil', href: '#' },
+  { name: 'Sair da conta', action: logout },
 ]
 </script>
