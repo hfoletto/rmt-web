@@ -22,11 +22,11 @@
               <div v-for="auditorium in theater.auditoriums" :key="auditorium.name">
                 <h4>{{ auditorium.name }}</h4>
                 <div class="flex flex-wrap items-center space-x-1.5">
-                  <Chip><Icon :icon="panoramaSharp" class="text-gray-400 mr-1 w-auto h-5" /> {{ auditorium.image_rating?.toFixed(1) ?? ' ' }} </Chip>
-                  <Chip><Icon :icon="speakerIcon" class="text-gray-400 mr-1 w-auto h-5" /> {{ auditorium.audio_rating?.toFixed(1) ?? ' ' }} </Chip>
-                  <Chip><Icon :icon="eventSeat" class="text-gray-400 mr-1 w-auto h-5" /> {{ auditorium.comfort_rating?.toFixed(1) ?? ' ' }} </Chip>
-                  <Chip><Icon :icon="storefrontIcon" class="text-gray-400 mr-1 w-auto h-5" /> {{ auditorium.bomboniere_rating?.toFixed(1) ?? ' ' }} </Chip>
-                  <Chip><Icon :icon="magicButton" class="text-gray-400 mr-1 w-auto h-5" /> {{ auditorium.experience_rating?.toFixed(1) ?? ' ' }} </Chip>
+                  <RatingChip type="image" :value="auditorium.image_rating"/>
+                  <RatingChip type="audio" :value="auditorium.audio_rating"/>
+                  <RatingChip type="comfort" :value="auditorium.comfort_rating"/>
+                  <RatingChip type="bomboniere" :value="auditorium.bomboniere_rating"/>
+                  <RatingChip type="experience" :value="auditorium.experience_rating"/>
                 </div>
               </div>
             </div>
@@ -54,12 +54,6 @@
 </template>
 <script lang="ts" setup>
 import { useHead } from '#imports'
-import { Icon } from '@iconify/vue'
-import panoramaSharp from '@iconify-icons/material-symbols/panorama-sharp'
-import speakerIcon from '@iconify-icons/material-symbols/speaker'
-import eventSeat from '@iconify-icons/material-symbols/event-seat'
-import storefrontIcon from '@iconify-icons/material-symbols/storefront'
-import magicButton from '@iconify-icons/material-symbols/magic-button'
 
 useHead({
   bodyAttrs: {
