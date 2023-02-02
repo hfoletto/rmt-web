@@ -11,7 +11,7 @@
               <NuxtLink
                   v-for="item in navigation"
                   :key="item.name"
-                  :to="item.href"
+                  :to="item.to"
                   :class="[item.current
                     ? 'border-red-800 text-gray-900'
                     : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
@@ -74,7 +74,7 @@
             v-for="item in navigation"
             :key="item.name"
             as="a"
-            :href="item.href"
+            :href="item.to"
             :class="[item.current ? 'bg-indigo-50 border-red-800 text-indigo-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800', 'block pl-3 pr-4 py-2 border-l-4 text-base font-medium']"
             :aria-current="item.current ? 'page' : undefined"
           >
@@ -165,10 +165,7 @@ const user = {
 }
 
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
+  { name: 'Cinemas', to: '/cinemas', current: true },
 ]
 const userNavigation = [
   { name: 'Perfil', href: '#' },
