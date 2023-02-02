@@ -410,6 +410,7 @@ type Theater {
   theaterChain: TheaterChain!
   city: City!
   auditoriums: [Auditorium!]!
+  auditoriums_count: Int!
   created_at: DateTime!
   updated_at: DateTime!
 }
