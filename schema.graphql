@@ -5,10 +5,15 @@ type Auditorium {
   theater: Theater!
   ratings: [Rating!]!
   image_rating: Float
+  image_rating_count: Int!
   audio_rating: Float
+  audio_rating_count: Int!
   comfort_rating: Float
+  comfort_rating_count: Int!
   bomboniere_rating: Float
+  bomboniere_rating_count: Int!
   experience_rating: Float
+  experience_rating_count: Int!
   ratings_count: Int!
   created_at: DateTime!
   updated_at: DateTime!
