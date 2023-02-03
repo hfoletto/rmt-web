@@ -10,15 +10,11 @@
         </div>
         <div class="mt-8 grid gap-12 pt-8 lg:grid-cols-3 lg:gap-x-4 lg:gap-y-4">
           <div v-for="theater in city.theaters" :key="theater.name" class="bg-white flex flex-col overflow-hidden rounded-lg shadow-lg p-5">
-            <div>
-              <a href="#" class="inline-block">
-                <span :class="['bg-red-100 text-red-900 inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium']">{{ theater.auditoriums_count }} salas</span>
-              </a>
-            </div>
-            <a href="#" class="mt-4 block">
+            <a href="#" class="block">
               <p class="text-xl font-semibold text-gray-900">{{ theater.name }}</p>
+              <span class="text-base text-gray-500">{{ theater.address }}</span>
             </a>
-            <div class="mt-8 space-y-4">
+            <div class="mt-6 space-y-4">
               <div v-for="auditorium in theater.auditoriums" :key="auditorium.name">
                 <h4>{{ auditorium.name }}</h4>
                 <div class="flex flex-wrap items-center space-x-1.5">
