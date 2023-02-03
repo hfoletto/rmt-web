@@ -407,6 +407,7 @@ type StatePaginator {
 type Theater {
   id: ID!
   name: String!
+  address: String!
   theaterChain: TheaterChain!
   city: City!
   auditoriums: [Auditorium!]!
