@@ -1,10 +1,10 @@
 <template>
   <span :class="[
     rating_colors.chip_bg, rating_colors.chip_text,
-    'flex flex-wrap items-center px-3 py-1.5 rounded-full font-semibold text-sm flex align-center w-max cursor-pointer'
+    'flex flex-wrap items-center px-2.5 py-1.5 rounded-full font-mono font-semibold text-sm flex align-center w-max cursor-pointer'
   ]">
     <Icon :icon="rating_info.icon" :class="[rating_colors.icon, 'mr-1 w-auto h-5']" />
-    {{ value?.toFixed(1) ?? ' ' }}
+    {{ value?.toFixed(1) ?? 'N/A' }}
   </span>
 </template>
 
@@ -55,25 +55,30 @@ const ratingTypeInfos: Record<RatingType, RatingTypeInfo> = {
 const rating_info = ratingTypeInfos[props.type]
 
 const rating_colors = computed((): RatingLevelColors => {
-  if (props.value) {
-    if (props.value >= 4)
-      return {
-        icon: 'text-amber-700',
-        chip_bg: 'bg-amber-100',
-        chip_text: 'text-amber-800',
-      }
-    if (props.value < 2.5)
-      return {
-        icon: 'text-brown-800',
-        chip_bg: 'bg-brown-100',
-        chip_text: 'text-brown-900',
-      }
-  }
+  if (!props.value)
+    return {
+      icon: 'text-gray-400',
+      chip_bg: 'bg-gray-200',
+      chip_text: 'text-gray-500',
+    }
+
+  if (props.value >= 4)
+    return {
+      icon: 'text-green-700',
+      chip_bg: 'bg-green-100',
+      chip_text: 'text-green-800',
+    }
+  if (props.value < 2.5)
+    return {
+      icon: 'text-red-700',
+      chip_bg: 'bg-red-100',
+      chip_text: 'text-red-800',
+    }
 
   return {
-    icon: 'text-slate-800',
-    chip_bg: 'bg-slate-100',
-    chip_text: 'text-slate-900',
+    icon: 'text-yellow-800',
+    chip_bg: 'bg-yellow-100',
+    chip_text: 'text-yellow-900',
   }
 })
 
