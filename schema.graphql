@@ -2,6 +2,7 @@
 type Auditorium {
   id: ID!
   name: String!
+  slug: String!
   theater: Theater!
   ratings: [Rating!]!
   image_rating: Float
@@ -39,6 +40,7 @@ type AuditoriumPaginator {
 type City {
   id: ID!
   name: String!
+  slug: String!
   state: State!
   theaters: [Theater!]!
   created_at: DateTime!
@@ -225,12 +227,14 @@ type Query {
   auditorium(
     """Search by primary key."""
     id: ID
+    slug: String
   ): Auditorium
 
   """Find a theater by an identifying attribute."""
   theater(
     """Search by primary key."""
     id: ID
+    slug: String
   ): Theater
 
   """Find a theater chain by an identifying attribute."""
@@ -273,6 +277,7 @@ type Query {
   cities(
     """Filters by name. Accepts SQL LIKE wildcards `%` and `_`."""
     name: String
+    slug: String
 
     """Limits number of fetched items."""
     first: Int = 10
@@ -285,6 +290,7 @@ type Query {
   auditoriums(
     """Filters by name. Accepts SQL LIKE wildcards `%` and `_`."""
     name: String
+    slug: String
 
     """Limits number of fetched items."""
     first: Int = 10
@@ -412,10 +418,11 @@ type StatePaginator {
 type Theater {
   id: ID!
   name: String!
+  slug: String!
   address: String!
   theaterChain: TheaterChain!
   city: City!
-  auditoriums: [Auditorium!]!
+  auditoriums(slug: String): [Auditorium!]!
   auditoriums_count: Int!
   created_at: DateTime!
   updated_at: DateTime!
@@ -432,6 +439,7 @@ input TheaterBelongsTo {
 type TheaterChain {
   id: ID!
   name: String!
+  slug: String!
   theaters: [Theater!]!
   created_at: DateTime!
   updated_at: DateTime!
