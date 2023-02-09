@@ -16,7 +16,10 @@
             </a>
             <div class="mt-6 space-y-4">
               <div v-for="auditorium in theater.auditoriums" :key="auditorium.name">
-                <h4>{{ auditorium.name }} - {{ auditorium.ratings_count }} avaliações</h4>
+                <h4>
+                  <NuxtLink :to="`/cinemas/${theater.slug}/salas/${auditorium.slug}`">{{ auditorium.name }}</NuxtLink>
+                  - {{ auditorium.ratings_count }} avaliações
+                </h4>
                 <div class="flex flex-wrap items-center space-x-1.5">
                   <div class="group relative">
                     <RatingChip data-tooltip-target="image_rating_tooltip" type="image" :value="auditorium.image_rating"/>
@@ -93,10 +96,12 @@ const query = gql`
         }
         theaters {
           name
+          slug
           address
           auditoriums_count
           auditoriums {
             name
+            slug
             image_rating
             image_rating_count
             audio_rating
