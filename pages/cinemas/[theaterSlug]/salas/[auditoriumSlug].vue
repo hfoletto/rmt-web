@@ -14,7 +14,8 @@
           :bomboniere-rating="rating.bomboniere_rating"
           :experience-rating="rating.experience_rating"
           :review="rating.review"
-          :movie-watched="rating.movie_watched"
+          :movie-watched-title="rating.movie_watched.title"
+          :movie-watched-poster="rating.movie_watched.poster_url"
           :visited-at="rating.visited_at"
           :user-name="rating.user.name"
         />
@@ -39,7 +40,10 @@ const query = gql`
           bomboniere_rating
           experience_rating
           review
-          movie_watched
+          movie_watched {
+            title
+            poster_url
+          }
           visited_at
           user {
             name

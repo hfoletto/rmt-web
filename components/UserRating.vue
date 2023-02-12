@@ -1,34 +1,39 @@
 <template>
-  <div class="py-8 space-y-4">
-    <div class="text-xl">
-      <span class="font-medium">{{ userName }}</span> assistiu
-      <span class="font-bold text-red-800">{{ movieWatched }}</span> em
-      <span class="font-light text-gray-500">{{ visitedAt }}</span>
+  <div class="py-12 flex">
+    <div class="mr-8">
+      <img :src="movieWatchedPoster" class="w-48 h-auto"/>
     </div>
-    <div class="w-full flex justify-between">
-      <div class="flex items-center">
-        <span class="block">Imagem:</span>
-        <StarRating class="ml-1" :rating="imageRating"/>
+    <div class="space-y-4 flex-1">
+      <div class="text-xl">
+        <span class="font-medium">{{ userName }}</span> assistiu
+        <span class="font-bold text-red-800">{{ movieWatchedTitle }}</span> em
+        <span class="font-light text-gray-500">{{ visitedAt }}</span>
       </div>
-      <div class="flex items-center">
-        <span class="block">Áudio:</span>
-        <StarRating class="ml-1" :rating="audioRating"/>
+      <div class="w-full flex justify-between">
+        <div class="flex items-center">
+          <span class="block">Imagem:</span>
+          <StarRating class="ml-1" :rating="imageRating"/>
+        </div>
+        <div class="flex items-center">
+          <span class="block">Áudio:</span>
+          <StarRating class="ml-1" :rating="audioRating"/>
+        </div>
+        <div class="flex items-center">
+          <span class="block">Conforto:</span>
+          <StarRating class="ml-1" :rating="comfortRating"/>
+        </div>
+        <div class="flex items-center">
+          <span class="block">Bomboniere:</span>
+          <StarRating class="ml-1" :rating="bomboniereRating"/>
+        </div>
+        <div class="flex items-center">
+          <span class="block">Experiência:</span>
+          <StarRating class="ml-1" :rating="experienceRating"/>
+        </div>
       </div>
-      <div class="flex items-center">
-        <span class="block">Conforto:</span>
-        <StarRating class="ml-1" :rating="comfortRating"/>
+      <div v-if="review" class="text-base leading-7 text-gray-800">
+        <p>{{ review }}</p>
       </div>
-      <div class="flex items-center">
-        <span class="block">Bomboniere:</span>
-        <StarRating class="ml-1" :rating="bomboniereRating"/>
-      </div>
-      <div class="flex items-center">
-        <span class="block">Experiência:</span>
-        <StarRating class="ml-1" :rating="experienceRating"/>
-      </div>
-    </div>
-    <div v-if="review" class="text-base leading-7 text-gray-800">
-      <p>{{ review }}</p>
     </div>
   </div>
 </template>
@@ -41,7 +46,8 @@ defineProps<{
   bomboniereRating?: Number,
   experienceRating?: Number,
   review?: Number,
-  movieWatched: Number,
+  movieWatchedTitle: String,
+  movieWatchedPoster: String,
   visitedAt: Number,
   userName: String,
 }>()
