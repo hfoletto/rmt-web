@@ -93,6 +93,19 @@ A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`.
 """
 scalar DateTime
 
+"""A movie from tmdb."""
+type Movie {
+  id: ID!
+  tmdb_id: ID!
+  title: String!
+  original_title: String!
+  overview: String!
+  release_date: Date!
+  poster_url: String
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
 type Mutation {
   """Log in to a new session and get the user."""
   login(email: String!, password: String!): User!
@@ -348,7 +361,7 @@ type Rating {
   experience_rating: Int
   review: String
   visited_at: Date!
-  movie_watched: String!
+  movie_watched: Movie!
   seat: String
   seat_rating: Int
   created_at: DateTime!
