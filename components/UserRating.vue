@@ -31,8 +31,7 @@
           <StarRating class="ml-1" :rating="experienceRating"/>
         </div>
       </div>
-      <div v-if="review" class="text-base leading-7 text-gray-800">
-        <p>{{ review }}</p>
+      <div v-if="review" class="text-base leading-7 text-gray-800 space-y-3" v-html="review">
       </div>
     </div>
   </div>
