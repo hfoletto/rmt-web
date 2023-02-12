@@ -3,6 +3,7 @@ type Auditorium {
   id: ID!
   name: String!
   slug: String!
+  description: String!
   theater: Theater!
   ratings: [Rating!]!
   image_rating: Float
@@ -16,6 +17,7 @@ type Auditorium {
   experience_rating: Float
   experience_rating_count: Int!
   ratings_count: Int!
+  featured_image: Media
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -92,6 +94,10 @@ scalar Date
 A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`.
 """
 scalar DateTime
+
+type Media {
+  original_url: String!
+}
 
 """A movie from tmdb."""
 type Movie {
