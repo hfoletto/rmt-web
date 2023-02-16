@@ -102,12 +102,13 @@ type Media {
 """A movie from tmdb."""
 type Movie {
   id: ID!
-  tmdb_id: ID!
+  tmdb_id: Int!
   title: String!
   original_title: String!
   overview: String!
   release_date: Date!
   poster_url: String
+  tmdb_post_path: String
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -267,6 +268,7 @@ type Query {
     """Search by primary key."""
     id: ID
   ): Rating
+  searchMovies(query: String!): [Movie]
 
   """List multiple users."""
   users(
