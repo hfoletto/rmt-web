@@ -213,6 +213,8 @@ const { mutate: createRatingMutate, error, loading } = useMutation(gql`
         $review: String,
         $tmdb_movie_id: Int!,
         $visited_at: Date!
+        $seat: String,
+        $seat_rating: Int,
       ) {
         createRating (input: {
           auditorium_id: $auditorium_id,
@@ -224,6 +226,8 @@ const { mutate: createRatingMutate, error, loading } = useMutation(gql`
           review: $review
           visited_at: $visited_at
           tmdb_movie_id: $tmdb_movie_id,
+          seat: $seat,
+          seat_rating: $seat_rating,
         }) {
           id
         }
@@ -239,6 +243,8 @@ const { mutate: createRatingMutate, error, loading } = useMutation(gql`
     review: review.value,
     tmdb_movie_id: tmdb_movie_id.value,
     visited_at: visited_at.value,
+    seat: seat.value,
+    seat_rating: seat_rating.value,
   },
 }))
 
@@ -248,6 +254,7 @@ const createRating = async function () {
     $toast.show({
       type: 'success',
       message: 'Avaliação enviada com sucesso',
+      timeout: 6,
     })
     emit('ratingCreated')
   }
