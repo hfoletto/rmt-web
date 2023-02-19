@@ -1,11 +1,11 @@
 <template>
   <modal-base>
-    <form class="space-y-8 divide-y divide-gray-200" @submit.prevent="createRating">
-      <div class="space-y-8 divide-y divide-gray-200">
+    <form class="space-y-8" @submit.prevent="createRating">
+      <div class="space-y-8">
         <div>
           <div>
             <h3 class="text-lg font-medium leading-6 text-gray-900">Avaliação</h3>
-            <p class="mt-1 text-sm text-gray-500">Compartilhe o que achou da sua visita na sala.</p>
+            <p class="mt-1 text-gray-500">Compartilhe o que achou da sua visita na <span class="font-medium text-red-800">{{ auditoriumName }}</span> do cinema <span class="font-medium text-red-800">{{ theaterName }}</span>.</p>
           </div>
 
           <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
@@ -19,7 +19,7 @@
                     type="number"
                     min="1"
                     max="5"
-                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
                     :value="image_rating"
                     @input="image_rating = $event.target.value !== '' ? parseInt($event.target.value, 10) : null"
                 />
@@ -36,7 +36,7 @@
                     type="number"
                     min="1"
                     max="5"
-                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
                     :value="audio_rating"
                     @input="audio_rating = $event.target.value !== '' ? parseInt($event.target.value, 10) : null"
                 />
@@ -53,7 +53,7 @@
                     type="number"
                     min="1"
                     max="5"
-                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
                     :value="comfort_rating"
                     @input="comfort_rating = $event.target.value !== '' ? parseInt($event.target.value, 10) : null"
                 />
@@ -70,7 +70,7 @@
                     type="number"
                     min="1"
                     max="5"
-                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
                     :value="bomboniere_rating"
                     @input="bomboniere_rating = $event.target.value !== '' ? parseInt($event.target.value, 10) : null"
                 />
@@ -87,7 +87,7 @@
                     type="number"
                     min="1"
                     max="5"
-                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
                     :value="experience_rating"
                     @input="experience_rating = $event.target.value !== '' ? parseInt($event.target.value, 10) : null"
                 />
@@ -102,7 +102,7 @@
                     id="review"
                     name="review"
                     rows="3"
-                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
                     v-model="review"
                 />
               </div>
@@ -117,7 +117,7 @@
                     id="visited-at"
                     type="date"
                     required
-                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
                     v-model="visited_at"
                 />
               </div>
@@ -134,7 +134,7 @@
                     name="seat"
                     id="seat"
                     type="text"
-                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
                     v-model="seat"
                 />
               </div>
@@ -150,7 +150,7 @@
                     type="number"
                     min="1"
                     max="5"
-                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
                     :value="seat_rating"
                     @input="seat_rating = $event.target.value !== '' ? parseInt($event.target.value, 10) : null"
                 />
@@ -163,10 +163,7 @@
       </div>
 
       <div class="pt-5">
-        <div class="flex justify-end">
-          <button type="button" class="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Cancel</button>
-          <button type="submit" class="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Save</button>
-        </div>
+        <Button type="submit" :loading="loading">Enviar</Button>
       </div>
     </form>
   </modal-base>
@@ -178,6 +175,14 @@ import { useToast } from 'tailvue'
 const props = defineProps({
   auditoriumId: {
     type: Number,
+    required: true,
+  },
+  auditoriumName: {
+    type: String,
+    required: true,
+  },
+  theaterName: {
+    type: String,
     required: true,
   },
 })
