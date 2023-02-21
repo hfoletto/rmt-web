@@ -2,7 +2,7 @@
   <span v-if="!modelValue && readonly" class="font-semibold text-gray-400">Não avaliado</span>
   <div
     v-else
-    class="flex items-center h-5"
+    :class="['flex items-center', `h-${size}`]"
   >
     <button
       type="button"
@@ -18,7 +18,7 @@
       <svg
         aria-hidden="true"
         :class="[
-          'w-5 h-5',
+          `w-${size} h-${size}`,
           (!readonly && hover !== null)
             ? (hover >= i ? 'text-gray-700' : 'text-gray-300')
             : (modelValue >= i ? 'text-yellow-400' : 'text-gray-300'),
@@ -43,6 +43,11 @@ defineProps({
     type: Boolean,
     required: false,
     default: false,
+  },
+  size: {
+    type: Number,
+    required: false,
+    default: 5,
   },
 })
 const emit = defineEmits(['update:modelValue'])
