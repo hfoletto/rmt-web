@@ -91,17 +91,16 @@ const password = ref('')
 
 const loginMutationQuery = gql`
   mutation login($email: String!, $password: String!) {
-  login (email: $email, password: $password) {
-    name,
-    email
+    login (email: $email, password: $password) {
+      name,
+      email
+    }
   }
-}
 `
 
 const { mutate: loginMutation, error, loading } = useMutation(loginMutationQuery)
 
 async function login () {
-  console.log('ok1')
   const { data } = await loginMutation({ email: email.value, password: password.value })
   if (!error.value) {
     store.$patch({
