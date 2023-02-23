@@ -1,5 +1,5 @@
 <template>
-  <modal-base>
+  <modal-base max-width="sm:max-w-md">
     <form class="space-y-8" @submit.prevent="createRating">
       <div class="space-y-8">
         <div>
@@ -8,91 +8,46 @@
             <p class="mt-1 text-gray-500">Compartilhe o que achou da sua visita na <span class="font-medium text-red-800">{{ auditoriumName }}</span> do cinema <span class="font-medium text-red-800">{{ theaterName }}</span>.</p>
           </div>
 
-          <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+          <div class="mt-6 grid grid-cols-1 gap-y-8 gap-x-4 sm:grid-cols-6">
 
             <div class="sm:col-span-6">
-              <label for="image-rating" class="block text-sm font-medium text-gray-700">Imagem</label>
-              <div class="mt-1">
-                <input
-                    name="image-rating"
-                    id="image-rating"
-                    type="number"
-                    min="1"
-                    max="5"
-                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
-                    :value="image_rating"
-                    @input="image_rating = $event.target.value !== '' ? parseInt($event.target.value, 10) : null"
-                />
+              <div class="flex justify-between items-center">
+                <label class="block font-medium text-gray-700">Imagem</label>
+                <StarRating v-model="image_rating" :size="8" />
               </div>
-              <p class="mt-2 text-sm text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+              <p class="mt-1 text-sm text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
             </div>
 
             <div class="sm:col-span-6">
-              <label for="audio-rating" class="block text-sm font-medium text-gray-700">Áudio</label>
-              <div class="mt-1">
-                <input
-                    name="audio-rating"
-                    id="audio-rating"
-                    type="number"
-                    min="1"
-                    max="5"
-                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
-                    :value="audio_rating"
-                    @input="audio_rating = $event.target.value !== '' ? parseInt($event.target.value, 10) : null"
-                />
+              <div class="flex justify-between items-center">
+                <label class="block text-sm font-medium text-gray-700">Áudio</label>
+                <StarRating v-model="audio_rating" :size="8" />
               </div>
-              <p class="mt-2 text-sm text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+              <p class="mt-1 text-sm text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
             </div>
 
             <div class="sm:col-span-6">
-              <label for="comfort-rating" class="block text-sm font-medium text-gray-700">Conforto</label>
-              <div class="mt-1">
-                <input
-                    name="comfort-rating"
-                    id="comfort-rating"
-                    type="number"
-                    min="1"
-                    max="5"
-                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
-                    :value="comfort_rating"
-                    @input="comfort_rating = $event.target.value !== '' ? parseInt($event.target.value, 10) : null"
-                />
+              <div class="flex justify-between items-center">
+                <label class="block text-sm font-medium text-gray-700">Conforto</label>
+                <StarRating v-model="comfort_rating" :size="8" />
               </div>
-              <p class="mt-2 text-sm text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+              <p class="mt-1 text-sm text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
             </div>
 
             <div class="sm:col-span-6">
-              <label for="bomboniere-rating" class="block text-sm font-medium text-gray-700">Bomboniere</label>
-              <div class="mt-1">
-                <input
-                    name="bomboniere-rating"
-                    id="bomboniere-rating"
-                    type="number"
-                    min="1"
-                    max="5"
-                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
-                    :value="bomboniere_rating"
-                    @input="bomboniere_rating = $event.target.value !== '' ? parseInt($event.target.value, 10) : null"
-                />
+              <div class="flex justify-between items-center">
+                <label class="block text-sm font-medium text-gray-700">Bomboniere</label>
+                <StarRating v-model="bomboniere_rating" :size="8" />
               </div>
-              <p class="mt-2 text-sm text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+              <p class="mt-1 text-sm text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
             </div>
 
             <div class="sm:col-span-6">
-              <label for="experience-rating" class="block text-sm font-medium text-gray-700">Experiência</label>
-              <div class="mt-1">
-                <input
-                    name="experience-rating"
-                    id="experience-rating"
-                    type="number"
-                    min="1"
-                    max="5"
-                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
-                    :value="experience_rating"
-                    @input="experience_rating = $event.target.value !== '' ? parseInt($event.target.value, 10) : null"
-                />
+              <div class="flex justify-between items-center">
+                <label class="block text-sm font-medium text-gray-700">Experiência</label>
+                <StarRating v-model="experience_rating" :size="8" />
               </div>
-              <p class="mt-2 text-sm text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+              <p class="mt-1 text-sm text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
             </div>
 
             <div class="sm:col-span-6">
@@ -106,7 +61,7 @@
                     v-model="review"
                 />
               </div>
-              <p class="mt-2 text-sm text-gray-500">Use suas palavras para detalhar como foi sua experiência.</p>
+              <p class="mt-1 text-sm text-gray-500">Use suas palavras para detalhar como foi sua experiência.</p>
             </div>
 
             <div class="sm:col-span-6">
@@ -124,7 +79,7 @@
             </div>
 
             <div class="sm:col-span-6">
-              <MovieFinder v-model="tmdb_movie_id" label="Filme assistido" />
+              <MovieFinder v-model="tmdb_movie_id" label="Filme assistido" required />
             </div>
 
             <div class="sm:col-span-6">
@@ -138,24 +93,15 @@
                     v-model="seat"
                 />
               </div>
-              <p class="mt-2 text-sm text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+              <p class="mt-1 text-sm text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
             </div>
 
             <div class="sm:col-span-6">
-              <label for="seat-rating" class="block text-sm font-medium text-gray-700">Satisfação com o lugar</label>
-              <div class="mt-1">
-                <input
-                    name="seat-rating"
-                    id="seat-rating"
-                    type="number"
-                    min="1"
-                    max="5"
-                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-red-700 focus:ring-red-700 sm:text-sm"
-                    :value="seat_rating"
-                    @input="seat_rating = $event.target.value !== '' ? parseInt($event.target.value, 10) : null"
-                />
+              <div class="flex justify-between items-center">
+                <label class="block text-sm font-medium text-gray-700">Satisfação com o lugar</label>
+                <StarRating v-model="seat_rating" :size="8" />
               </div>
-              <p class="mt-2 text-sm text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+              <p class="mt-1 text-sm text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
             </div>
 
           </div>
