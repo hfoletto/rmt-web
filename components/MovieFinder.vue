@@ -10,6 +10,7 @@
     <div class="relative mt-1">
       <ComboboxInput
         class="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:border-red-700 focus:outline-none focus:ring-1 focus:ring-red-700 sm:text-sm"
+        :required="required"
         :display-value="(movie) => movie?.title"
         @change="query = $event.target.value"
       />
@@ -68,6 +69,11 @@ defineProps({
     type: String,
     required: false,
     default: 'Filme',
+  },
+  required: {
+    type: Boolean,
+    required: false,
+    default: false,
   },
 })
 const emit = defineEmits(['update:modelValue'])
