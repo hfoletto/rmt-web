@@ -64,8 +64,7 @@ input CreateAuditoriumInput {
 }
 
 input CreateRatingInput {
-  user: UserBelongsTo!
-  auditorium: AuditoriumBelongsTo!
+  auditorium_id: Int!
   image_rating: Int
   audio_rating: Int
   comfort_rating: Int
@@ -73,7 +72,7 @@ input CreateRatingInput {
   experience_rating: Int
   review: String
   visited_at: Date!
-  movie_watched: String!
+  tmdb_movie_id: Int!
   seat: String
   seat_rating: Int
 }
@@ -239,6 +238,7 @@ type Query {
     """Search by email address."""
     email: String
   ): User
+  mostPopularCity: City!
 
   """Get the current user"""
   me: User
