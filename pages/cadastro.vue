@@ -2,7 +2,7 @@
   <div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
       <NuxtLink to="/" class="block w-12 h-12 mx-auto">
-        <img class="h-12 w-auto" src="~/assets/img/logo.png" :alt="config.appName" />
+        <img class="h-12 w-auto" src="~/assets/img/logo.png" :alt="config.appName">
       </NuxtLink>
       <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Criar uma nova conta</h2>
       <p class="mt-2 text-center text-sm text-gray-600">
