@@ -9,21 +9,23 @@
             </NuxtLink>
             <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
               <NuxtLink
-                  v-for="item in navigation"
-                  :key="item.name"
-                  :to="item.to"
-                  :class="[item.current
-                    ? 'border-red-800 text-gray-900'
-                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
-                    'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'
-                  ]"
-                  :aria-current="item.current ? 'page' : undefined"
-              >{{ item.name }}</NuxtLink>
+                v-for="item in navigation"
+                :key="item.name"
+                :to="item.to"
+                :class="[item.current
+                           ? 'border-red-800 text-gray-900'
+                           : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
+                         'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'
+                ]"
+                :aria-current="item.current ? 'page' : undefined"
+              >
+                {{ item.name }}
+              </NuxtLink>
             </div>
           </div>
-          <div class="hidden sm:ml-6 sm:flex sm:items-center">
-            <!-- Profile dropdown -->
-            <Menu v-if="store.loggedIn" as="div" class="relative ml-3">
+          <div class="hidden items-center justify-end md:flex md:flex-1 space-x-8">
+            <CitySelector class="w-60" :model-value="cityStore?.city" @update:modelValue="updateCity" />
+            <Menu v-if="store.loggedIn" as="div" class="relative">
               <div>
                 <MenuButton class="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2">
                   <span class="sr-only">Open user menu</span>
@@ -52,19 +54,19 @@
                 </MenuItems>
               </transition>
             </Menu>
-            <div v-else class="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
+            <template v-else>
               <NuxtLink to="/login" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-700">Fazer login</NuxtLink>
-              <NuxtLink to="/cadastro" class="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-red-800 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700">Criar conta</NuxtLink>
-            </div>
+              <NuxtLink to="/cadastro" class="inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-red-800 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700">Criar conta</NuxtLink>
+            </template>
           </div>
-          <div class="-mr-2 flex items-center sm:hidden">
-            <!-- Mobile menu button -->
-            <DisclosureButton class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2">
-              <span class="sr-only">Open main menu</span>
-              <Bars3Icon v-if="!open" class="block h-6 w-6" aria-hidden="true" />
-              <XMarkIcon v-else class="block h-6 w-6" aria-hidden="true" />
-            </DisclosureButton>
-          </div>
+        </div>
+        <div class="-mr-2 flex items-center sm:hidden">
+          <!-- Mobile menu button -->
+          <DisclosureButton class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2">
+            <span class="sr-only">Open main menu</span>
+            <Bars3Icon v-if="!open" class="block h-6 w-6" aria-hidden="true" />
+            <XMarkIcon v-else class="block h-6 w-6" aria-hidden="true" />
+          </DisclosureButton>
         </div>
       </div>
 
@@ -114,6 +116,7 @@ import { useMutation } from '@vue/apollo-composable'
 import { useToast } from 'tailvue'
 import { useHead } from '#imports'
 import { useAuthStore } from '~/store/auth'
+import { City, useCityStore } from '~/store/city'
 
 useHead({
   title: 'RMT',
@@ -143,6 +146,8 @@ const logoutMutationQuery = gql`
 
 const { mutate: logoutMutation, error, loading } = useMutation(logoutMutationQuery)
 
+const cityStore = useCityStore()
+
 async function logout () {
   await logoutMutation()
   if (!error.value) {
@@ -157,6 +162,10 @@ async function logout () {
       return navigateTo('/')
     }, 1000)
   }
+}
+
+function updateCity (city: City) {
+  cityStore.city = city
 }
 
 const user = {
