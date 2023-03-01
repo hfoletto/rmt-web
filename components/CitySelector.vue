@@ -4,12 +4,15 @@
     as="div"
     :by="compareCities"
     :model-value="modelValue"
-    @update:modelValue="value => emit('update:modelValue', value.id)"
+    @update:modelValue="value => emit('update:modelValue', value)"
   >
     <ComboboxLabel class="block text-sm font-medium text-gray-700">{{ label }}</ComboboxLabel>
     <div class="relative mt-1">
+      <ComboboxButton class="absolute inset-y-0 left-0 flex items-center rounded-r-md px-2 focus:outline-none">
+        <MapPinIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+      </ComboboxButton>
       <ComboboxInput
-        class="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:border-red-700 focus:outline-none focus:ring-1 focus:ring-red-700 sm:text-sm"
+        class="w-full rounded-md border border-gray-300 bg-white py-2 pl-8 pr-10 shadow-sm focus:border-red-700 focus:outline-none focus:ring-1 focus:ring-red-700 sm:text-sm"
         :required="required"
         :display-value="(city) => city ? `${city.name} - ${city.state.uf}` : ''"
         @change="query = $event.target.value"
@@ -44,7 +47,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
+import { CheckIcon, ChevronUpDownIcon, MapPinIcon } from '@heroicons/vue/20/solid'
 import {
   Combobox,
   ComboboxButton,
@@ -56,13 +59,13 @@ import {
 
 defineProps({
   modelValue: {
-    type: Number,
+    type: Object,
     required: false,
   },
   label: {
     type: String,
     required: false,
-    default: 'Cidade',
+    default: undefined,
   },
   required: {
     type: Boolean,
@@ -79,10 +82,12 @@ const citiesQuery = gql`
   query getCities($name: String!){
     cities(name: $name, first: 10) {
       data {
-        name,
+        id
+        name
+        slug
         state {
-          name,
-          uf
+            name
+            uf
         }
       }
     }
