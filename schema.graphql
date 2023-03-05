@@ -324,6 +324,7 @@ type Query {
   theaters(
     """Filters by name. Accepts SQL LIKE wildcards `%` and `_`."""
     name: String
+    city_id: ID
 
     """Limits number of fetched items."""
     first: Int = 10
