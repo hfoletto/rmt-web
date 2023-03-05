@@ -1,7 +1,8 @@
 import { useCityStore } from '@/store/city'
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.hook('app:beforeMount', async () => {
-    const store = useCityStore()
-    await store.fetchMostPopularCity()
+    const cityStore = useCityStore()
+    if (cityStore.city === null)
+      await cityStore.fetchMostPopularCity()
   })
 })

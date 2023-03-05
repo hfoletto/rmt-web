@@ -40,4 +40,5 @@ export const useCityStore = defineStore('city', {
         this.city = data.value.mostPopularCity
     },
   },
+  persist: true,
 })

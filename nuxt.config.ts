@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     '@nuxtjs/apollo',
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
+    '@pinia-plugin-persistedstate/nuxt',
     '@tailvue/nuxt',
   ],
   runtimeConfig: {
@@ -46,5 +47,11 @@ export default defineNuxtConfig({
         },
       },
     },
+  },
+  piniaPersistedstate: {
+    cookieOptions: {
+      sameSite: 'strict',
+    },
+    storage: 'localStorage',
   },
 })
