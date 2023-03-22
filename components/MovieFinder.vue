@@ -92,7 +92,9 @@ const moviesQuery = gql`
   }
 `
 
-const { result, loading } = useQuery(moviesQuery, { query }, {
+const { result, loading } = useQuery(moviesQuery, { query }, () => ({
   debounce: 400,
-})
+  prefetch: false,
+  enabled: !!query.value.trim(),
+}))
 </script>
