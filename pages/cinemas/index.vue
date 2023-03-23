@@ -2,11 +2,12 @@
   <div class="px-6 pt-16 pb-20 lg:px-8 lg:pt-24 lg:pb-28 space-y-24">
     <template v-if="!loading">
       <div class="relative mx-auto max-w-lg divide-y-2 divide-gray-200 lg:max-w-7xl">
-        <div class="flex">
+        <div class="flex justify-between items-center">
           <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             {{ cityStore?.city?.name }}
             <span class="ml-2 font-light text-gray-500">{{ cityStore?.city?.state.uf }}</span>
           </h2>
+          <CitySelector class="w-60" :model-value="cityStore?.city" @update:modelValue="updateCity" />
         </div>
         <div class="mt-8 grid gap-12 pt-8 lg:grid-cols-3 lg:gap-x-4 lg:gap-y-4">
           <div v-for="theater in result.theaters.data" :key="theater.name" class="bg-white flex flex-col rounded-lg shadow-lg p-5">
@@ -80,7 +81,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useHead } from '#imports'
-import { useCityStore } from '~/store/city'
+import { City, useCityStore } from '~/store/city'
 
 useHead({
   bodyAttrs: {
@@ -109,6 +110,10 @@ useHead({
 })
 
 const cityStore = useCityStore()
+
+function updateCity (city: City) {
+  cityStore.city = city
+}
 
 const query = gql`
   query getCitiesWithTheaters($city_id: ID!) {

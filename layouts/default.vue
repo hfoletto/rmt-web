@@ -24,7 +24,6 @@
             </div>
           </div>
           <div class="hidden items-center justify-end md:flex md:flex-1 space-x-8">
-            <CitySelector class="w-60" :model-value="cityStore?.city" @update:modelValue="updateCity" />
             <Menu v-if="store.loggedIn" as="div" class="relative">
               <div>
                 <MenuButton class="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2">
@@ -146,8 +145,6 @@ const logoutMutationQuery = gql`
 
 const { mutate: logoutMutation, error, loading } = useMutation(logoutMutationQuery)
 
-const cityStore = useCityStore()
-
 async function logout () {
   await logoutMutation()
   if (!error.value) {
@@ -162,10 +159,6 @@ async function logout () {
       return navigateTo('/')
     }, 1000)
   }
-}
-
-function updateCity (city: City) {
-  cityStore.city = city
 }
 
 const user = {
