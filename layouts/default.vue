@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-full">
     <Disclosure v-slot="{ open }" as="nav" class="border-b border-gray-200 bg-white">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center sm:block mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 justify-between">
           <div class="flex">
             <NuxtLink to="/" class="flex flex-shrink-0 items-center">
@@ -24,7 +24,7 @@
             </div>
           </div>
           <div class="hidden items-center justify-end md:flex md:flex-1 space-x-8">
-            <Menu v-if="store.loggedIn" as="div" class="relative">
+            <Menu v-if="authStore.loggedIn" as="div" class="relative">
               <div>
                 <MenuButton class="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2">
                   <span class="sr-only">Open user menu</span>
@@ -40,22 +40,32 @@
                 leave-to-class="transform opacity-0 scale-95"
               >
                 <MenuItems class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
-                    <component
-                      :is="item.hasOwnProperty('action') ? 'button' : 'a'"
-                      :href="item.hasOwnProperty('href') && item.href"
+                  <MenuItem v-for="item in sideNavigationAuthenticated" :key="item.name" v-slot="{ active }">
+                    <Component
+                      :is="item.hasOwnProperty('action') ? 'button' : NuxtLink"
+                      :to="item.hasOwnProperty('to') && item.to"
                       :class="[active ? 'bg-gray-100' : '', 'block w-full text-left px-4 py-2 text-sm text-gray-700']"
                       @click="item.action"
                     >
                       {{ item.name }}
-                    </component>
+                    </Component>
                   </MenuItem>
                 </MenuItems>
               </transition>
             </Menu>
             <template v-else>
-              <NuxtLink to="/login" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-700">Fazer login</NuxtLink>
-              <NuxtLink to="/cadastro" class="inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-red-800 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700">Criar conta</NuxtLink>
+              <Component
+                  v-for="item in sideNavigationUnauthenticated"
+                  :key="item.name"
+                  :is="item.hasOwnProperty('action') ? 'button' : NuxtLink"
+                  :to="item.hasOwnProperty('to') && item.to"
+                  :class="[
+                      item.type === 'raised' ? 'rounded-md border border-transparent bg-red-800 px-4 py-2 text-white shadow-sm hover:bg-red-700' : 'text-gray-500 hover:text-gray-700',
+                      'whitespace-nowrap text-base font-medium']"
+                  @click="item.action"
+              >
+                {{ item.name }}
+              </Component>
             </template>
           </div>
         </div>
@@ -74,31 +84,51 @@
           <DisclosureButton
             v-for="item in navigation"
             :key="item.name"
-            as="a"
-            :href="item.to"
-            :class="[item.current ? 'bg-indigo-50 border-red-800 text-indigo-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800', 'block pl-3 pr-4 py-2 border-l-4 text-base font-medium']"
+            :as="NuxtLink"
+            :to="item.to"
+            :class="[item.current ? 'bg-red-50 border-red-800 text-red-800' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800', 'block pl-3 pr-4 py-2 border-l-4 text-base font-medium']"
             :aria-current="item.current ? 'page' : undefined"
           >
             {{ item.name }}
           </DisclosureButton>
         </div>
         <div class="border-t border-gray-200 pt-4 pb-3">
-          <div class="flex items-center px-4">
-            <div class="flex-shrink-0">
-              <UserCircleIcon class="h-10 w-10 text-gray-400" aria-hidden="true" />
+          <template v-if="authStore.loggedIn">
+            <div class="flex items-center px-4">
+              <div class="flex-shrink-0">
+                <UserCircleIcon class="h-10 w-10 text-gray-400" aria-hidden="true" />
+              </div>
+              <div class="ml-3">
+                <div class="text-base font-medium text-gray-800">{{ authStore.user?.name }}</div>
+                <div class="text-sm font-medium text-gray-500">{{ authStore.user?.email }}</div>
+              </div>
             </div>
-            <div class="ml-3">
-              <div class="text-base font-medium text-gray-800">{{ user.name }}</div>
-              <div class="text-sm font-medium text-gray-500">{{ user.email }}</div>
+            <div class="mt-3 space-y-1">
+              <DisclosureButton
+                  v-for="item in sideNavigationAuthenticated"
+                  :key="item.name"
+                  :as="item.hasOwnProperty('action') ? 'button' : NuxtLink"
+                  :to="item.hasOwnProperty('to') && item.to"
+                  class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
+                  @click="item.action"
+              >{{ item.name }}</DisclosureButton>
             </div>
-            <button type="button" class="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2">
-              <span class="sr-only">View notifications</span>
-              <BellIcon class="h-6 w-6" aria-hidden="true" />
-            </button>
-          </div>
-          <div class="mt-3 space-y-1">
-            <DisclosureButton v-for="item in userNavigation" :key="item.name" as="a" :href="item.href" class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">{{ item.name }}</DisclosureButton>
-          </div>
+          </template>
+          <template v-else>
+            <div class="mt-3 flex flex-col space-y-1">
+              <DisclosureButton
+                  v-for="item in sideNavigationUnauthenticated"
+                  :key="item.name"
+                  :as="item.hasOwnProperty('action') ? 'button' : NuxtLink"
+                  :to="item.hasOwnProperty('to') && item.to"
+                  :class="[
+                      'block px-4 py-2 text-base font-medium hover:bg-gray-100',
+                      item.type === 'raised' ? 'border-transparent bg-red-800 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700' : 'text-gray-500 hover:text-gray-800'
+                  ]"
+                  @click="item.action"
+              >{{ item.name }}</DisclosureButton>
+            </div>
+          </template>
         </div>
       </DisclosurePanel>
     </Disclosure>
@@ -109,13 +139,13 @@
 
 <script setup lang="ts">
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
+import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { UserCircleIcon } from '@heroicons/vue/24/solid'
 import { useMutation } from '@vue/apollo-composable'
 import { useToast } from 'tailvue'
+import { NuxtLink } from '#components'
 import { useHead } from '#imports'
 import { useAuthStore } from '~/store/auth'
-import { City, useCityStore } from '~/store/city'
 
 useHead({
   title: 'RMT',
@@ -132,7 +162,7 @@ useHead({
 })
 
 const config = useRuntimeConfig()
-const store = useAuthStore()
+const authStore = useAuthStore()
 const $toast = useToast()
 
 const logoutMutationQuery = gql`
@@ -148,7 +178,7 @@ const { mutate: logoutMutation, error, loading } = useMutation(logoutMutationQue
 async function logout () {
   await logoutMutation()
   if (!error.value) {
-    store.$patch({
+    authStore.$patch({
       user: null,
     })
     $toast.show({
@@ -161,16 +191,15 @@ async function logout () {
   }
 }
 
-const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-}
-
 const navigation = [
   { name: 'Cinemas', to: '/cinemas', current: true },
 ]
-const userNavigation = [
-  { name: 'Perfil', href: '#' },
+const sideNavigationAuthenticated = [
+  { name: 'Perfil', to: '#' },
   { name: 'Sair da conta', action: logout },
+]
+const sideNavigationUnauthenticated = [
+  { name: 'Fazer login', to: '/login', type: 'flat' },
+  { name: 'Criar conta', to: '/cadastro', type: 'raised' },
 ]
 </script>
