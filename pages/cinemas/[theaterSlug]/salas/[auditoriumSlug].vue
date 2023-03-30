@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="relative isolate overflow-hidden bg-gray-900 h-[calc(100vh_-_4rem)]">
+    <div class="relative isolate overflow-hidden bg-black h-[calc(100vh_-_4rem)]">
       <transition
           enter-from-class="opacity-0"
           leave-to-class="opacity-0"
@@ -20,6 +20,19 @@
             {{ result.theater.auditoriums[0].name }}
             <span class="ml-2 font-light opacity-80">{{ result.theater.name }}</span>
           </h2>
+          <RatingGroup
+              class="mt-6 opacity-95 space-x-3"
+              :image-rating="result.theater.auditoriums[0].image_rating"
+              :image-rating-count="result.theater.auditoriums[0].image_rating_count"
+              :audio-rating="result.theater.auditoriums[0].audio_rating"
+              :audio-rating-count="result.theater.auditoriums[0].audio_rating_count"
+              :comfort-rating="result.theater.auditoriums[0].comfort_rating"
+              :comfort-rating-count="result.theater.auditoriums[0].comfort_rating_count"
+              :bomboniere-rating="result.theater.auditoriums[0].bomboniere_rating"
+              :bomboniere-rating-count="result.theater.auditoriums[0].bomboniere_rating_count"
+              :experience-rating="result.theater.auditoriums[0].experience_rating"
+              :experience-rating-count="result.theater.auditoriums[0].experience_rating_count"
+          />
           <p class="mt-6 text-lg leading-8 text-white opacity-80">{{ result.theater.auditoriums[0].description }}</p>
         </div>
       </div>
@@ -95,6 +108,16 @@ const query = gql`
         id
         name
         description
+        image_rating
+        image_rating_count
+        audio_rating
+        audio_rating_count
+        comfort_rating
+        comfort_rating_count
+        bomboniere_rating
+        bomboniere_rating_count
+        experience_rating
+        experience_rating_count
         ratings_count
         featured_image {
           original_url
