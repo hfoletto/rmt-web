@@ -1,9 +1,11 @@
 <template>
-  <span :class="[
-    rating_colors.chip_bg, rating_colors.chip_text,
-    'flex flex-wrap items-center px-2.5 py-1.5 rounded-full font-mono font-semibold text-sm flex align-center w-max cursor-pointer'
-  ]">
-    <Icon :icon="rating_info.icon" :class="[rating_colors.icon, 'mr-1 w-auto h-5']" />
+  <span
+    :class="[
+      rating_colors.chip_bg, rating_colors.chip_text,
+      'flex flex-wrap items-center px-1.5 py-1 text-xs rounded-full font-mono font-semibold flex align-center w-max cursor-pointer sm:px-2.5 sm:py-1.5 sm:text-sm'
+    ]"
+  >
+    <Icon :icon="rating_info.icon" :class="[rating_colors.icon, 'mr-1 w-auto h-4 sm:h-5']" />
     {{ value?.toFixed(1) ?? 'N/A' }}
   </span>
 </template>
