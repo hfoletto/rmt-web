@@ -9,38 +9,19 @@
       <span class="text-xl font-bold opacity-95 lg:text-2xl">{{ auditorium.name }}</span>
       <span class="text-base opacity-80">{{ auditorium.ratings_count }} avaliações</span>
     </div>
-    <div class="flex flex-wrap items-center justify-center space-x-1.5 opacity-95">
-      <div class="group relative">
-        <RatingChip data-tooltip-target="image_rating_tooltip" type="image" :value="auditorium.image_rating" />
-        <span class="px-3 py-2 text-sm font-medium bg-gray-700 text-white rounded-lg shadow-sm whitespace-nowrap -translate-y-full -translate-x-1/2 -top-1 left-2/4 hidden group-hover:block absolute z-50">
-          Imagem - {{ auditorium.image_rating_count }} avaliações
-        </span>
-      </div>
-      <div class="group relative">
-        <RatingChip type="audio" :value="auditorium.audio_rating" />
-        <span class="px-3 py-2 text-sm font-medium bg-gray-700 text-white rounded-lg shadow-sm whitespace-nowrap -translate-y-full -translate-x-1/2 -top-1 left-2/4 hidden group-hover:block absolute z-50">
-          Áudio - {{ auditorium.audio_rating_count }} avaliações
-        </span>
-      </div>
-      <div class="group relative">
-        <RatingChip type="comfort" :value="auditorium.comfort_rating" />
-        <span class="px-3 py-2 text-sm font-medium bg-gray-700 text-white rounded-lg shadow-sm whitespace-nowrap -translate-y-full -translate-x-1/2 -top-1 left-2/4 hidden group-hover:block absolute z-50">
-          Conforto - {{ auditorium.comfort_rating_count }} avaliações
-        </span>
-      </div>
-      <div class="group relative">
-        <RatingChip type="bomboniere" :value="auditorium.bomboniere_rating" />
-        <span class="px-3 py-2 text-sm font-medium bg-gray-700 text-white rounded-lg shadow-sm whitespace-nowrap -translate-y-full -translate-x-1/2 -top-1 left-2/4 hidden group-hover:block absolute z-50">
-                      Bomboniere - {{ auditorium.bomboniere_rating_count }} avaliações
-                    </span>
-      </div>
-      <div class="group relative">
-        <RatingChip type="experience" :value="auditorium.experience_rating" />
-        <span class="px-3 py-2 text-sm font-medium bg-gray-700 text-white rounded-lg shadow-sm whitespace-nowrap -translate-y-full -translate-x-1/2 -top-1 left-2/4 hidden group-hover:block absolute z-50">
-          Experiência - {{ auditorium.experience_rating_count }} avaliações
-        </span>
-      </div>
-    </div>
+    <RatingGroup
+      class="justify-center opacity-95"
+      :image-rating="auditorium.image_rating"
+      :image-rating-count="auditorium.image_rating_count"
+      :audio-rating="auditorium.audio_rating"
+      :audio-rating-count="auditorium.audio_rating_count"
+      :comfort-rating="auditorium.comfort_rating"
+      :comfort-rating-count="auditorium.comfort_rating_count"
+      :bomboniere-rating="auditorium.bomboniere_rating"
+      :bomboniere-rating-count="auditorium.bomboniere_rating_count"
+      :experience-rating="auditorium.experience_rating"
+      :experience-rating-count="auditorium.experience_rating_count"
+    />
   </NuxtLink>
 </template>
 
