@@ -11,6 +11,7 @@
     </div>
     <RatingGroup
       class="justify-center opacity-95"
+      contained
       :image-rating="auditorium.image_rating"
       :image-rating-count="auditorium.image_rating_count"
       :audio-rating="auditorium.audio_rating"
