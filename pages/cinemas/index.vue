@@ -28,17 +28,25 @@
       </div>
     </template>
     <template v-else>
-      <div class="animate-pulse relative mx-auto max-w-lg divide-y-2 divide-gray-200 lg:max-w-7xl">
-        <div class="flex">
-          <h2 class="flex">
-            <div class="h-10 bg-gray-200 rounded-full dark:bg-gray-700 w-52" />
-            <div class="ml-2 h-10 bg-gray-200 rounded-full dark:bg-gray-700 w-16" />
-          </h2>
+      <div class="animate-pulse relative mx-auto max-w-7xl">
+        <div class="flex pb-8 border-b-2 border-gray-200">
+          <div class="h-10 bg-gray-200 rounded-full dark:bg-gray-700 w-52" />
+          <div class="ml-2 h-10 bg-gray-200 rounded-full dark:bg-gray-700 w-16" />
         </div>
-        <div class="mt-8 grid gap-12 pt-8 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-6">
-          <div v-for="j in 6" :key="j" class="bg-white flex flex-col overflow-hidden rounded-lg shadow-lg p-6">
-            <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 w-16" />
-            <div class="h-7 mt-4 bg-gray-200 rounded-full dark:bg-gray-700 w-60" />
+        <div class="my-8 space-y-8">
+          <div v-for="i in 4" :key="i" class="bg-white flex flex-col rounded-lg shadow-lg p-4 md:p-6">
+            <div>
+              <div class="h-9 bg-gray-200 rounded-full dark:bg-gray-700 w-60" />
+              <div class="mt-2 h-5 bg-gray-200 rounded-full dark:bg-gray-700 w-52" />
+            </div>
+            <div class="mt-6 grid md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-3">
+              <div
+                  v-for="j in 6"
+                  :key="`${i}-${j}`"
+                  class="overflow-hidden rounded-2xl bg-gray-200 px-2 pb-4 lg:px-4 aspect-video"
+              >
+              </div>
+            </div>
           </div>
         </div>
       </div>
