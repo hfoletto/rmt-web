@@ -45,7 +45,14 @@
             </div>
             <div class="mt-4 h-11 bg-gray-200 rounded-full dark:bg-gray-700 w-80" />
           </div>
-          <div class="mt-4">
+          <div class="mt-6 flex flex-wrap items-center space-x-3">
+            <div
+              v-for="i in 5"
+              :key="i"
+              class="rounded-full bg-gray-200 h-8 w-16"
+            />
+          </div>
+          <div class="mt-6">
             <template v-for="i in 5" :key="i">
               <div class="inline-block mr-2 mt-1.5 h-5 bg-gray-200 rounded-full dark:bg-gray-700 w-12" />
               <div class="inline-block mr-2 mt-1.5 h-5 bg-gray-200 rounded-full dark:bg-gray-700 w-20" />
