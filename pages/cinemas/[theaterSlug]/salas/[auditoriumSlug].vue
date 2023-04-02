@@ -63,8 +63,11 @@
         </div>
       </div>
     </div>
-    <div v-if="!loading && result?.theater?.auditoriums?.length" class="relative mx-auto max-w-lg lg:max-w-7xl px-6 pt-16 pb-20 lg:px-8 lg:py-12">
-      <div class="border-y-2 py-2 px-4 border-gray-200 flex justify-between text-2xl">
+    <div
+        v-if="!loading && result?.theater?.auditoriums?.length"
+        class="relative mx-auto max-w-7xl px-4 pt-16 pb-20 mf:px-8 md:py-12"
+    >
+      <div class="border-y-2 py-2 px-4 border-gray-200 flex justify-between text-sm md:text-2xl">
         <h3 class="font-semibold text-gray-800">Todas as avaliações</h3>
         <h3 class="text-gray-500">mais recentes primeiro</h3>
       </div>
