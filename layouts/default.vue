@@ -55,14 +55,14 @@
             </Menu>
             <template v-else>
               <Component
-                  v-for="item in sideNavigationUnauthenticated"
-                  :key="item.name"
-                  :is="item.hasOwnProperty('action') ? 'button' : NuxtLink"
-                  :to="item.hasOwnProperty('to') && item.to"
-                  :class="[
-                      item.type === 'raised' ? 'rounded-md border border-transparent bg-red-800 px-4 py-2 text-white shadow-sm hover:bg-red-700' : 'text-gray-500 hover:text-gray-700',
-                      'whitespace-nowrap text-base font-medium']"
-                  @click="item.action"
+                :is="item.hasOwnProperty('action') ? 'button' : NuxtLink"
+                v-for="item in sideNavigationUnauthenticated"
+                :key="item.name"
+                :to="item.hasOwnProperty('to') && item.to"
+                :class="[
+                  item.type === 'raised' ? 'rounded-md border border-transparent bg-red-800 px-4 py-2 text-white shadow-sm hover:bg-red-700' : 'text-gray-500 hover:text-gray-700',
+                  'whitespace-nowrap text-base font-medium']"
+                @click="item.action"
               >
                 {{ item.name }}
               </Component>
@@ -105,28 +105,32 @@
             </div>
             <div class="mt-3 space-y-1">
               <DisclosureButton
-                  v-for="item in sideNavigationAuthenticated"
-                  :key="item.name"
-                  :as="item.hasOwnProperty('action') ? 'button' : NuxtLink"
-                  :to="item.hasOwnProperty('to') && item.to"
-                  class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
-                  @click="item.action"
-              >{{ item.name }}</DisclosureButton>
+                v-for="item in sideNavigationAuthenticated"
+                :key="item.name"
+                :as="item.hasOwnProperty('action') ? 'button' : NuxtLink"
+                :to="item.hasOwnProperty('to') && item.to"
+                class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
+                @click="item.action"
+              >
+                {{ item.name }}
+              </DisclosureButton>
             </div>
           </template>
           <template v-else>
             <div class="mt-3 flex flex-col space-y-1">
               <DisclosureButton
-                  v-for="item in sideNavigationUnauthenticated"
-                  :key="item.name"
-                  :as="item.hasOwnProperty('action') ? 'button' : NuxtLink"
-                  :to="item.hasOwnProperty('to') && item.to"
-                  :class="[
-                      'block px-4 py-2 text-base font-medium hover:bg-gray-100',
-                      item.type === 'raised' ? 'border-transparent bg-red-800 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700' : 'text-gray-500 hover:text-gray-800'
-                  ]"
-                  @click="item.action"
-              >{{ item.name }}</DisclosureButton>
+                v-for="item in sideNavigationUnauthenticated"
+                :key="item.name"
+                :as="item.hasOwnProperty('action') ? 'button' : NuxtLink"
+                :to="item.hasOwnProperty('to') && item.to"
+                :class="[
+                  'block px-4 py-2 text-base font-medium hover:bg-gray-100',
+                  item.type === 'raised' ? 'border-transparent bg-red-800 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700' : 'text-gray-500 hover:text-gray-800'
+                ]"
+                @click="item.action"
+              >
+                {{ item.name }}
+              </DisclosureButton>
             </div>
           </template>
         </div>
@@ -143,6 +147,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { UserCircleIcon } from '@heroicons/vue/24/solid'
 import { useMutation } from '@vue/apollo-composable'
 import { useToast } from 'tailvue'
+import { computed } from 'vue'
 import { NuxtLink } from '#components'
 import { useHead } from '#imports'
 import { useAuthStore } from '~/store/auth'
@@ -164,6 +169,7 @@ useHead({
 const config = useRuntimeConfig()
 const authStore = useAuthStore()
 const $toast = useToast()
+const route = useRoute()
 
 const logoutMutationQuery = gql`
   mutation logout {
@@ -191,9 +197,15 @@ async function logout () {
   }
 }
 
-const navigation = [
-  { name: 'Cinemas', to: '/cinemas', current: true },
-]
+const navigation = computed(() => {
+  return [
+    { name: 'Início', to: '/', current: route.name === 'index' },
+    { name: 'Cinemas', to: '/cinemas', current: route.name === 'cinemas' },
+    { name: 'Contato', to: '/contato', current: route.name === 'contato' },
+  ]
+},
+)
+
 const sideNavigationAuthenticated = [
   { name: 'Perfil', to: '#' },
   { name: 'Sair da conta', action: logout },
