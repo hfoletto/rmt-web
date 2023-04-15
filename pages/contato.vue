@@ -54,10 +54,12 @@
             <input
               id="phone-number"
               v-model="phone_number"
+              v-maska:[phone_number_mask]
               type="tel"
               name="phone-number"
               autocomplete="tel"
               required
+              pattern=".{14,15}"
               class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-800 sm:text-sm sm:leading-6"
             >
           </div>
@@ -85,6 +87,7 @@
 
 <script setup lang="ts">
 import { useToast } from 'tailvue'
+import { vMaska } from 'maska'
 
 const $toast = useToast()
 
@@ -93,6 +96,11 @@ const last_name = ref('' as string)
 const email = ref('' as string)
 const phone_number = ref('' as string)
 const message = ref('' as string)
+
+const phone_number_mask = reactive({
+  mask: (value: string) => value.length >= 15 ? '(##) #####-####' : '(##) ####-####',
+  eager: true,
+})
 
 const reset = function () {
   first_name.value = ''
