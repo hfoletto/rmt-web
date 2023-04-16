@@ -13,7 +13,12 @@
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
       <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
         <form action="#" method="POST" class="space-y-6" @submit.prevent="register">
-          <TextInput id="name" v-model="name" label="Nome de usuário" required />
+          <TextInput
+            id="name"
+            v-model="name"
+            label="Nome"
+            required
+          />
           <TextInput
             id="email"
             v-model="email"
@@ -22,20 +27,26 @@
             autocomplete="email"
             required
           />
-          <TextInput id="confirm_email" v-model="confirm_email" type="email" label="Confirmar e-mail" required />
-          <TextInput id="password" v-model="password" type="password" label="Senha" required />
-
-          <div class="flex items-center justify-between">
-            <div class="flex items-center">
-              <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-red-800 focus:ring-red-700">
-              <label for="remember-me" class="ml-2 block text-sm text-gray-900">Aceito os termos</label>
-            </div>
-          </div>
+          <TextInput
+            id="confirm_email"
+            v-model="confirm_email"
+            type="email"
+            label="Confirmar e-mail"
+            required
+          />
+          <TextInput
+            id="password"
+            v-model="password"
+            type="password"
+            label="Senha"
+            :minlength="8"
+            required
+          />
 
           <ErrorAlert v-if="error" :error="error" />
 
           <div>
-            <Button :loading="loading">Continuar</Button>
+            <Button :loading="loading">Enviar</Button>
           </div>
         </form>
       </div>
@@ -45,7 +56,13 @@
 
 <script setup lang="ts">
 import { useMutation } from '@vue/apollo-composable'
+import { useToast } from 'tailvue'
 import { useHead } from '#imports'
+import { useAuthStore } from '~/store/auth'
+
+const $toast = useToast()
+
+const authStore = useAuthStore()
 
 useHead({
   htmlAttrs: {
@@ -67,9 +84,6 @@ const createUserMutationQuery = gql`
     name,
     email
   }
-  login (email: "josu", password: "woah") {
-    name
-  }
 }
 `
 
@@ -80,12 +94,29 @@ const password = ref('')
 
 const { mutate: createUserMutation, error, loading } = useMutation(createUserMutationQuery)
 
-function register () {
-  createUserMutation({
+const register = async function () {
+  if (email.value !== confirm_email.value)
+    return $toast.show({
+      type: 'danger',
+      message: 'Os emails não conferem, verifique e envie novamente.',
+      timeout: 10,
+    })
+  const { data } = await createUserMutation({
     name: name.value,
     email: email.value,
     password: password.value,
   })
+  if (!error.value) {
+    authStore.$patch({
+      user: { ...data.createUser },
+    })
+    $toast.show({
+      type: 'success',
+      message: 'Conta criada com sucesso!',
+      timeout: 6,
+    })
+    return navigateTo('/')
+  }
 }
 
 </script>
