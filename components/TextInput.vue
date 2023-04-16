@@ -11,6 +11,8 @@
         :required="required"
         :placeholder="placeholder"
         :value="modelValue"
+        :pattern="minlength ? `.{${minlength},}` : undefined"
+        :title="minlength ? `Mínimo de ${minlength} caracteres` : undefined"
         @input="$emit('update:modelValue', $event.target.value)"
       >
     </div>
@@ -29,6 +31,7 @@ defineProps({
     default: 'text',
   },
   autocomplete: String,
+  minlength: Number,
 })
 
 defineEmits<{
