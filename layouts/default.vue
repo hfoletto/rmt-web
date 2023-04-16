@@ -141,7 +141,7 @@
 
     <footer class="bg-white border-t-[1px] border-gray-200">
       <div class="mx-auto max-w-7xl overflow-hidden px-6 py-12 sm:py-16 lg:px-8">
-        <nav class="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12" aria-label="Footer">
+        <nav class="-mb-6 columns-2 flex justify-center space-x-12" aria-label="Footer">
           <div v-for="item in navigation" :key="item.name" class="pb-6">
             <Component
               :is="item.hasOwnProperty('action') ? 'button' : NuxtLink"
