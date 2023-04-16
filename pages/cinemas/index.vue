@@ -10,7 +10,7 @@
           <CitySelector class="w-full sm:w-60" :model-value="cityStore?.city" @update:modelValue="updateCity" />
         </div>
         <div class="my-8 space-y-8">
-          <div v-for="theater in result.theaters.data" :key="theater.name" class="bg-white flex flex-col rounded-lg shadow-lg p-4 md:p-6">
+          <div v-for="theater in result.theaters.data" :key="theater.name" class="bg-white flex flex-col rounded-lg shadow-lg p-3 md:p-6">
             <h3 class="block">
               <span class="block text-2xl font-semibold text-gray-900 lg:text-3xl">{{ theater.name }}</span>
               <span class="block text-lg text-gray-500">{{ theater.address }}</span>
