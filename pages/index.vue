@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-black h-[calc(100svh_-_4rem)] max-h-[161vw] relative">
+  <div class="bg-black h-[calc(100svh_-_4rem)] max-h-[161vw] min-h-[27rem] relative">
     <div class="absolute z-10 max-w-2xl md:left-1/2 md:-translate-x-1/2 p-4 bottom-12">
       <div class="text-center">
         <h1 class="text-4xl font-bold tracking-tight text-white sm:text-6xl">A plataforma do frequentador de cinema</h1>
