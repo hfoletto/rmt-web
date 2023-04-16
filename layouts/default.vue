@@ -138,6 +138,25 @@
     </Disclosure>
 
     <slot />
+
+    <footer class="bg-white border-t-[1px] border-gray-200">
+      <div class="mx-auto max-w-7xl overflow-hidden px-6 py-12 sm:py-16 lg:px-8">
+        <nav class="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12" aria-label="Footer">
+          <div v-for="item in navigation" :key="item.name" class="pb-6">
+            <Component
+              :is="item.hasOwnProperty('action') ? 'button' : NuxtLink"
+              :key="item.name"
+              :to="item.hasOwnProperty('to') && item.to"
+              class="text-sm leading-6 text-gray-600 hover:text-gray-900"
+              @click="item.action"
+            >
+              {{ item.name }}
+            </Component>
+          </div>
+        </nav>
+        <p class="mt-10 text-center text-xs leading-5 text-gray-500">&copy; 2023 Rate My Theater</p>
+      </div>
+    </footer>
   </div>
 </template>
 
