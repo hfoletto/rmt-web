@@ -34,7 +34,7 @@
 
               <div class="flex items-center justify-between">
                 <div class="text-sm">
-                  <a href="#" class="font-medium text-red-800 hover:text-red-700">Esqueceu sua senha?</a>
+                  <NuxtLink to="/esqueci-minha-senha" class="font-medium text-red-800 hover:text-red-700">Esqueceu sua senha?</NuxtLink>
                 </div>
               </div>
 
