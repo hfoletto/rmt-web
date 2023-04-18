@@ -145,6 +145,9 @@ type Mutation {
   "Register a new user"
   createUser(name: String!, email: String!, password: String!): User
 
+  forgotPassword(email: String!): String
+  resetPassword(email: String!, password: String!, password_confirmation: String!, token: String!): String
+
   "Creates a new theater chain."
   createTheaterChain(input: CreateTheaterChainInput!): TheaterChain!
 
