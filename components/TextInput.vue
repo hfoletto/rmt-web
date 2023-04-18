@@ -4,10 +4,11 @@
     <div class="mt-1">
       <input
         :id="id"
-        class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-red-700 focus:outline-none focus:ring-red-700 sm:text-sm"
+        class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-red-700 focus:outline-none focus:ring-red-700 sm:text-sm disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500 disabled:ring-gray-200"
         :name="id"
         :type="type"
         :autocomplete="autocomplete"
+        :disabled="disabled"
         :required="required"
         :placeholder="placeholder"
         :value="modelValue"
@@ -25,6 +26,7 @@ defineProps({
   id: String,
   placeholder: String,
   modelValue: String,
+  disabled: Boolean,
   required: Boolean,
   type: {
     type: String,
